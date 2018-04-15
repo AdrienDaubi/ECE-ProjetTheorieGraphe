@@ -372,8 +372,10 @@ class Graph
 
         void test_remove_vertex(int eadx);
         void test_remove_edge(int eidx);
-        void Sauvegrade();
+        void Sauvegarde();
         void ChargerGraphe();
+        void ChargerGrapheBase(std::string name);
+        void Interaction();
 };
 
 

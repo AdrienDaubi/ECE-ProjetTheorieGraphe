@@ -1,0 +1,23 @@
+7
+7
+0 100 398 98 homme.jpg
+
+1 10 198 298 viande.png
+
+2 50 398 298 fruits.png
+
+3 50 598 298 poisson.png
+
+4 20 198 498 cereales.jpg
+
+5 10 398 498 pesticides.png
+
+6 20 598 498 plancton.png
+
+0 2 0 50
+1 1 0 50
+2 3 0 75
+3 4 1 25
+4 5 1 25
+5 5 2 25
+6 6 3 10
