@@ -1,7 +1,8 @@
 #include "graph.h"
 #include <sstream>
 #include <fstream>
-
+#include <iostream>
+using namespace std;
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -138,63 +139,63 @@ void Edge::post_update()
 /// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
-    m_top_box.set_dim(900,720);
+    m_top_box.set_dim(1024,768);
     m_top_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
 
     m_top_box.add_child(m_tool_box);
-    m_tool_box.set_dim(80,720);
+    m_tool_box.set_dim(1024,768);
     m_tool_box.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
     m_tool_box.set_bg_color(BLANCBLEU);
 
     m_top_box.add_child(m_main_box);
-    m_main_box.set_dim(900,720);
+    m_main_box.set_dim(834,768);
     m_main_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
-    m_main_box.set_bg_color(BLANCJAUNE);
+    m_main_box.set_bg_color(BLANCBLEU);
 
 
     //on ajoute en bas la boite à boutons
     m_top_box.add_child(m_ButtonBox);
-    m_ButtonBox.set_dim(250,150);
-    m_ButtonBox.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Down);
-    m_ButtonBox.set_bg_color(FUCHSIACLAIR);
+    m_ButtonBox.set_dim(190,768);
+    m_ButtonBox.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
+    m_ButtonBox.set_bg_color(BLEUCLAIR);
     m_ButtonBox.set_moveable();
 
     ///Premier bouton
     m_ButtonBox.add_child(m_Button1);
-    m_Button1.set_frame(10,25,140,25);
-    m_Button1.set_bg_color(FUCHSIA);
+    m_Button1.set_frame(20,165,140,50);
+    m_Button1.set_bg_color(VERT);
 
     m_Button1.add_child(m_sauvgarder);
     m_sauvgarder.set_message("Sauvegarder");
 
     ///Deuxiéme bouton
     m_ButtonBox.add_child(m_Button2);
-    m_Button2.set_frame(25,50,140,25);
-    m_Button2.set_bg_color(FUCHSIA);
+    m_Button2.set_frame(20,265,140,50);
+    m_Button2.set_bg_color(ROUGE);
 
     m_Button2.add_child(m_effacer);
     m_effacer.set_message("Effacer");
 
     ///Troisième bouton
     m_ButtonBox.add_child(m_Button3);
-    m_Button3.set_frame(50,75,140,25);
-    m_Button3.set_bg_color(FUCHSIA);
+    m_Button3.set_frame(20,365,140,50);
+    m_Button3.set_bg_color(ORANGE);
 
     m_Button3.add_child(m_recuperer);
     m_recuperer.set_message("Récupérer");
 
     ///quatrième Bouton
     m_ButtonBox.add_child(m_Button4);
-    m_Button4.set_frame(75,100,140,25);
-    m_Button4.set_bg_color(FUCHSIA);
+    m_Button4.set_frame(20,465,140,50);
+    m_Button4.set_bg_color(GRISCLAIR);
 
     m_Button4.add_child(m_AddVertex);
     m_AddVertex.set_message("Ajouter un sommet");
 
     ///Cinquième bouton
     m_ButtonBox.add_child(m_Button5);
-    m_Button5.set_frame(100,125,140,25);
-    m_Button5.set_bg_color(FUCHSIA);
+    m_Button5.set_frame(20,565,140,50);
+    m_Button5.set_bg_color(GRISCLAIR);
 
     m_Button5.add_child(m_AddEdge);
     m_AddEdge.set_message("Ajouter un arc");
@@ -215,13 +216,13 @@ void Graph::make_example1()
 
     /// Les sommets doivent être définis avant les arcs
     // Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
-    add_interfaced_vertex(0, 100.0, 400, 0, "homme.jpg");// num de sommet , poid, | , --
-    add_interfaced_vertex(1, 10.0, 200, 200, "viande.png");
-    add_interfaced_vertex(2,  50.0, 400, 200, "poisson.png");
-    add_interfaced_vertex(3,  0.0, 600, 200, "fruits.png");
-    add_interfaced_vertex(4,  100.0, 200, 400, "cereales.jpg");
-    add_interfaced_vertex(5,  0.0, 400, 400, "pesticides.png");
-    add_interfaced_vertex(6,  0.0, 600, 400, "plancton.png");
+    add_interfaced_vertex(0, 100.0, 400, 100, "homme.jpg");// num de sommet , poid, | , --
+    add_interfaced_vertex(1, 10.0, 200, 300, "viande.png");
+    add_interfaced_vertex(2,  50.0, 400, 300, "poisson.png");
+    add_interfaced_vertex(3,  0.0, 600, 300, "fruits.png");
+    add_interfaced_vertex(4,  100.0, 200,500, "cereales.jpg");
+    add_interfaced_vertex(5,  0.0, 400,500, "pesticides.png");
+    add_interfaced_vertex(6,  0.0, 600,500, "plancton.png");
     //add_interfaced_vertex(7,  0.0, 500, 500, "bad_clowns_xx3xx.jpg");
 
     /// Les arcs doivent être définis entre des sommets qui existent !
@@ -247,13 +248,13 @@ void Graph::make_example2()
 
     /// Les sommets doivent être définis avant les arcs
     // Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
-    add_interfaced_vertex(0, 100.0, 400, 0, "sun.png");// num de sommet , poid, | , --
-    add_interfaced_vertex(1, 10.0, 200, 200, "viande.png");
-    add_interfaced_vertex(2,  50.0, 400, 200, "poisson.png");
-    add_interfaced_vertex(3,  0.0, 600, 200, "fruits.png");
-    add_interfaced_vertex(4,  100.0, 200, 400, "cereales.jpg");
-    add_interfaced_vertex(5,  0.0, 400, 400, "pesticides.png");
-    add_interfaced_vertex(6,  0.0, 600, 400, "plancton.png");
+    add_interfaced_vertex(0, 100.0, 400, 100, "sun.png");// num de sommet , poid, | , --
+    add_interfaced_vertex(1, 10.0, 200, 300, "viande.png");
+    add_interfaced_vertex(2,  50.0, 400, 300, "poisson.png");
+    add_interfaced_vertex(3,  0.0, 600, 300, "fruits.png");
+    add_interfaced_vertex(4,  100.0, 200,500, "cereales.jpg");
+    add_interfaced_vertex(5,  0.0, 400, 500, "pesticides.png");
+    add_interfaced_vertex(6,  0.0, 600, 500, "plancton.png");
     //add_interfaced_vertex(7,  0.0, 500, 500, "bad_clowns_xx3xx.jpg");
 
     /// Les arcs doivent être définis entre des sommets qui existent !
@@ -299,7 +300,7 @@ void Graph::update()
 
     if (m_interface->m_Button1.clicked())
     {
-        Sauvegrade();
+        Sauvegarde();
     }
 
     if (m_interface->m_Button2.clicked())
@@ -314,14 +315,14 @@ void Graph::update()
                 test_remove_edge(elem.first);
             }
         }
-        std::cout << "ARGHHH ! " << std::endl;
+        std::cout << "Sommet isole ! " << std::endl;
 
     }
 
-    /*if (m_interface->m_Button3.clicked())
+    if (m_interface->m_Button3.clicked())
     {
-        ChargerFonction();
-    }*/
+        ChargerGraphe();
+    }
 
     if (m_interface->m_Button4.clicked())
     {
@@ -331,7 +332,7 @@ void Graph::update()
         {
         std::cout << "--Que sera l'indice de votre sommet ?--" <<  std::endl;
         std::cin >> indice;
-        }while(indice < 6 );
+        }while(indice < m_edges.size() );
 
         do
         {
@@ -351,7 +352,7 @@ void Graph::update()
             switch(Choix)
                 {
                 case '0' :
-                    PicName = "homme.pnj";
+                    PicName = "homme.jpg";
                     break;
 
                 case '1':
@@ -383,23 +384,27 @@ void Graph::update()
                 }
             }
 
-        add_interfaced_vertex(indice,valeur, 300,300, PicName);
+        add_interfaced_vertex(indice,valeur,300,300,PicName);
+        std::cout << "Le sommet a ete cree avec succes !" << std::endl;
     }
 
 
     if(m_interface->m_Button5.clicked())
     {
-        std::cout << " Creation d'un nouvel arc : " << std::endl;
-        std::cout << " Que sera l'indice de votre arc ? : (Ne pas mettre un indice déja existant) " << std::endl;
+        std::cout << "--------Creation d'un nouvel arc :--------- " << std::endl;
+         do
+        {
+        std::cout << "--Choisir l'indice de votre arc:-- " << std::endl;
         std::cin >> indiceEdge;
-        std::cout << "Indice Sommet 1 : " << std::endl;
+        }while(indice < m_vertices.size() );
+        std::cout << "--Indiquez le sommet influence :--" << std::endl;
         std::cin >> indicesommet1 ;
-        std::cout << "Indice Sommet 2 : " << std::endl;
+        std::cout << "--Indiquez le sommet influent :-- " << std::endl;
         std::cin >> indicesommet2 ;
-        std::cout << "Le poids de votre arc : " << std::endl;
+        std::cout << "--Indiquez la valeure de votre arc :-- " << std::endl;
         std::cin >> poids;
-
         add_interfaced_edge(indiceEdge, indicesommet1, indicesommet2, poids );
+        std::cout << "L'arc a ete cree avec succes !" <<std::endl;
     }
 }
 
@@ -503,66 +508,82 @@ void Graph::test_remove_edge(int eidx)
     std::cout << m_edges.size() << std::endl;
 }
 
-void Graph::Sauvegrade()
+void Graph::Sauvegarde()
 {
-    std::map<int, Vertex> m_vertices;
-    std::string buff;
-    std::string fileName, name;
+    std::string NomFichier, nom;
     std::cout << "Entrez le nom du fichier a sauvegarder : " << std::endl;
-    std::cin >> name;
-    fileName = name+".txt";
+    std::cin >> nom;
+    NomFichier = nom+".txt";
 
-    std::ofstream file(fileName, std::ios::out | std::ios::trunc);
-    // parcourir la map du sommet et la sauvegarder dans le fichier
-    file << m_vertices.size();
-    file << " ";
-    file << m_edges.size();
-    file << std::endl;
+    std::ofstream fichier(NomFichier, std::ios::out | std::ios::trunc);
+    {// ouverture du fichier en ecriture
 
-    for(unsigned int i=0; i<m_vertices.size(); i++)
+    fichier << m_vertices.size();
+    fichier << std::endl;
+    fichier << m_edges.size();
+    fichier <<  std::endl;
+
+   for (unsigned int i=0; i<m_vertices.size();i++)
     {
-        file<<i<<" "<<m_vertices[i].m_value<<" "<<m_vertices[i].m_interface->m_top_box.get_posx()
-        <<" "<<m_vertices[i].m_interface->m_top_box.get_posy()<<" "
-        <<m_vertices[i].m_interface->m_img.get_pic_name();
-        file << std::endl;
+        fichier<<i<<" " << m_vertices[i].m_value << " " << m_vertices[i].m_interface->m_top_box.get_posx() << " " << m_vertices[i].m_interface->m_top_box.get_posy()<<" " << m_vertices[i].m_interface->m_img.get_pic_name() <<std::endl;
+        fichier << std::endl;
     }
 
-    //edge
-    for(const auto & elem1 : m_edges)
+    for (unsigned int i=0; i<m_edges.size(); i++)
     {
-        file << elem1.first << " " <<elem1.second.m_from <<" "<< elem1.second.m_to<<" "<< elem1.second.m_weight<< std::endl;
+        //ecriture numero du sommet, poids, sommet incident, sommet d'arrivé
+        fichier<<i<<" "<<m_edges[i].m_from<<" "<< m_edges[i].m_to<<" "<<m_edges[i].m_weight;
+        fichier<<std::endl;
     }
-    file.close();
+
+    fichier.close();
+    }
 }
 
-/**void Graph::ChargerFonction()
+void Graph::ChargerGraphe()
 {
-    std::map<int, Vertex> m_vertices;
-    std::string name1, FileName;
-    std::string buff;
-    std::cout << "Quel graphe voulez vous récupérer ? : " << std::endl;
-    std::cin >> name1;
-    FileName=name1+".txt";
+    std::string nom,NomFichier;
+    std::cout << "Quel graphe voulez vous recuperer ? : " << std::endl;
+    ///Montrer la liste des fichiers
+    std::cin >> nom;
+    NomFichier=nom+".txt";
 
-    std::ifstream file(FileName, std::ios::out | std::ios::trunc);
-
-    file >> m_vertices.size();
-    file >> " ";
-    file >> m_edges.size();
-    file >> std::endl;
-
-   for(unsigned int i=0; i<m_vertices.size(); i++)
+    std::ifstream fichier (NomFichier,ios::in);
+    //ouverture du fichier en lecture
+    if(fichier)
     {
-        file<<i<<" "<<m_vertices[i].m_value<<" "<<m_vertices[i].m_interface->m_top_box.get_posx()
-        <<" "<<m_vertices[i].m_interface->m_top_box.get_posy()<<" "
-        <<m_vertices[i].m_interface->m_img.get_pic_name();
-        file << std::endl;
+        int nbSommet, nbArrete;
+        int indice1,coord1,coord2;
+        double Poids1;
+        std::string nomfich;
+
+        ///Nombre de Sommet/Arrete
+        fichier >>nbSommet>>nbArrete;
+
+        ///Charge Sommet
+
+        for (int i=0;i<nbSommet;i++)
+        {
+            fichier >>indice1>>Poids1>>coord1>>coord2>>nomfich;
+            std::cout << "ok"<<std::endl;
+            add_interfaced_vertex(indice1,Poids1,coord1,coord2,nomfich);
+
+        }
+        ///Charge Arc
+        int indice2,Sommet1,Sommet2;
+        double Poids2;
+        std::cout << "ko" << std::endl;
+        for (int i=0;i<nbArrete;i++)
+        {
+            fichier >>indice2>>Sommet1>>Sommet2>>Poids2;
+            add_interfaced_edge(indice2,Sommet1,Sommet2, Poids2);
+        }
+
+        fichier.close();
+    }
+    else
+    {
+        std::cout<< "Impossible d'ouvrir le fichier"<<std::endl;
     }
 
-    //edge
-    for(const auto & elem1 : m_edges)
-    {
-        file << elem1.first << " " <<elem1.second.m_from <<" "<< elem1.second.m_to<<" "<< elem1.second.m_weight<< std::endl;
-    }
-    file.close();
-}**/
+}

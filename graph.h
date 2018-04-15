@@ -150,7 +150,6 @@ class Vertex
         // La ligne précédente est en gros équivalent à la ligne suivante :
         // VertexInterface * m_interface = nullptr;
 
-
     public:
 
         /// Les constructeurs sont à compléter selon vos besoin...
@@ -313,12 +312,10 @@ class Graph
         int posx;
         int posy;
         std::string PicName;
-        //
         int indiceEdge;
         int indicesommet1;
         int indicesommet2;
         double poids;
-        //
         int num;
 
          std::string m_pic_name;
@@ -364,10 +361,9 @@ class Graph
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
-
         void test_remove_edge(int eidx);
-        void Sauvegrade();
-        //void ChargerFonction();
+        void Sauvegarde();
+        void ChargerGraphe();
 };
 
 
