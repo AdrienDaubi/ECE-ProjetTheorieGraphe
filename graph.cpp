@@ -211,7 +211,7 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
 
 }
 
-
+/*
 /// Méthode spéciale qui construit un graphe arbitraire (démo)
 /// Cette méthode est à enlever et remplacer par un système
 /// de chargement de fichiers par exemple.
@@ -324,9 +324,10 @@ void Graph::make_example3()
     add_interfaced_edge(21, 11, 12, 50.0);
     add_interfaced_edge(22, 12, 10, 50.0);
     add_interfaced_edge(23, 10, 9, 50.0);
-    add_interfaced_edge(26, 3, 11, 50.0);
-    add_interfaced_edge(29, 6, 11, 50.0);
+    add_interfaced_edge(24, 3, 11, 50.0);
+    add_interfaced_edge(25, 6, 11, 50.0);
 }
+*/
 
 
 /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
@@ -355,21 +356,34 @@ void Graph::update()
 
     if (m_interface->m_Button1.clicked())
     {
-        Sauvegrade();
+        Sauvegarde();
+    }
+
+    if (m_interface->m_Button3.clicked())
+    {
+        ChargerGraphe();
     }
 
     if(m_interface->m_Button2.clicked())
     {
-        std::cout << "Quel arc voulez-vous supprimer ? Entrez l'indice de l'arc " << std::endl;
+        std::cout << std::endl << "  Quel arc voulez-vous supprimer ?" << std::endl;
+
+        do{
+        std::cout << "--Quel est l'indice de l'arc a supprimer ?--" <<  std::endl;
         std::cin >> num;
+        }while(num > m_edges.size() - 1);
         test_remove_edge(num);
 
     }
 
     if (m_interface->m_Button6.clicked())
     {
-        std::cout << "Quel sommet voulez-vous supprimer ? " << std::endl;
+        std::cout << std::endl << "  Quel sommet voulez-vous supprimer ? " << std::endl;
+
+        do{
+        std::cout << "--Quel est l'indice du sommet a supprimer ?--" <<  std::endl;
         std::cin >> num;
+        }while(num > m_vertices.size()- 1);
 
         for (auto& elem : m_edges)
         {
@@ -382,20 +396,15 @@ void Graph::update()
 
     }
 
-    if (m_interface->m_Button3.clicked())
-    {
-        ChargerGraphe();
-    }
-
     if (m_interface->m_Button4.clicked())
     {
-        std::cout << "--------Creation d'un nouveau sommet :--------" <<std::endl<<std::endl<<std::endl;
+        std::cout <<std::endl << "--------Creation d'un nouveau sommet :--------" <<std::endl;
         std::cout<<"Prendre un indice qui n'existe pas."<<std::endl<<std::endl;
         do
         {
         std::cout << "--Que sera l'indice de votre sommet ?--" <<  std::endl;
         std::cin >> indice;
-        }while(indice < 6 );
+        }while(indice < m_vertices.size() );
 
         do
         {
@@ -405,11 +414,12 @@ void Graph::update()
 
         char Choix;
         std::cout <<  "--Quel sommet aimerez-vous ajoutez ?--"<<std::endl;
-        do
+         do
         {
-        std::cout << "0. Homme" <<std::endl << "1. Viande" << std::endl<< "2. Poisson" <<std::endl<< "3. Fruit" <<std::endl<< "4. Cereales"<< std::endl<< "5. Pesticides" << std::endl<< "6. Plancton" <<std::endl<< "7. Soleil" <<std::endl<< "8. Eau" <<std::endl<< "9. Foret" <<std::endl<< "10. Sol" <<std::endl<< "11. Eau Potable" <<std::endl<< "12. Oxygene" <<std::endl<< "13. Pature" <<std::endl<< "14. Animaux" <<std::endl<< "15. Coucou" <<std::endl;        std::cin >> Choix;
+        std::cout << "0. Homme" <<std::endl << "1. Viande" << std::endl<< "2. Poisson" <<std::endl<< "3. Fruit" <<std::endl<< "4. Cereales"<< std::endl<< "5. Animaux" << std::endl<< "6. Oxygène" <<std::endl<< "7. Soleil" <<std::endl<< "8. Eau" <<std::endl<< "9. Foret" <<std::endl;
+        std::cin >> Choix;
         }
-        while(Choix < '0'  || Choix > '14');
+        while(Choix < '0'  || Choix > '9');
             {
             switch(Choix)
                 {
@@ -434,11 +444,11 @@ void Graph::update()
                     break;
 
                 case '5':
-                    PicName = "pesticides.png";
+                    PicName = "animaux.png";
                     break;
 
                 case '6':
-                    PicName = "plancton.png";
+                    PicName = "O2.png";
                     break;
 
                 case '7':
@@ -453,26 +463,6 @@ void Graph::update()
                     PicName = "arbre.png";
                     break;
 
-                case '10':
-                    PicName = "sol.png";
-                    break;
-
-                case '11':
-                    PicName = "Potable.png";
-                    break;
-
-                case '12':
-                    PicName = "O2.png";
-                    break;
-
-                case '13':
-                    PicName = "pature.png";
-                    break;
-
-                case '14':
-                    PicName = "animaux.png";
-                    break;
-
                 default:
                     std::cout << "Ce sommet n'existe pas!"<< std::endl;
                 }
@@ -484,17 +474,23 @@ void Graph::update()
 
     if(m_interface->m_Button5.clicked())
     {
-        std::cout << " Creation d'un nouvel arc : " << std::endl;
-        std::cout << " Que sera l'indice de votre arc ? : (Ne pas mettre un indice déja existant) " << std::endl;
+        std::cout << std::endl << "--------Creation d'un nouvel arc :--------- " << std::endl;
+         do
+        {
+        std::cout << "--Choisir l'indice de votre arc:-- " << std::endl;
         std::cin >> indiceEdge;
-        std::cout << "Indice Sommet 1 : " << std::endl;
-        std::cin >> indicesommet1 ;
-        std::cout << "Indice Sommet 2 : " << std::endl;
-        std::cin >> indicesommet2 ;
-        std::cout << "Le poids de votre arc : " << std::endl;
-        std::cin >> poids;
-
+        }while(indiceEdge < m_edges.size() );
+        do {
+        std::cout << "--Indiquez le sommet influence :--" << std::endl;
+        std::cin >> indicesommet1;}while(indicesommet1>m_edges.size());
+        do{
+        std::cout << "--Indiquez le sommet influent :-- " << std::endl;
+        std::cin >> indicesommet2 ;}while (indicesommet2>m_edges.size());
+        do{
+        std::cout << "--Indiquez la valeure de votre arc :-- " << std::endl;
+        std::cin >> poids;}while (valeur > 100 || valeur <0);
         add_interfaced_edge(indiceEdge, indicesommet1, indicesommet2, poids );
+        std::cout << "L'arc a ete cree avec succes !" <<std::endl;
     }
 }
 
@@ -608,7 +604,7 @@ void Graph::test_remove_edge(int eidx)
     std::cout << m_edges.size() << std::endl;
 }
 
-void Graph::Sauvegrade()
+void Graph::Sauvegarde()
 {
    std::string NomFichier, nom;
     std::cout << "Entrez le nom du fichier a sauvegarder : " << std::endl;
@@ -642,8 +638,10 @@ void Graph::Sauvegrade()
 
 void Graph::ChargerGraphe()
 {
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+
     std::string nom,NomFichier;
-    std::cout << "Quel graphe voulez vous recuperer ? : " << std::endl;
+    std::cout << std::endl << "-----Quel graphe voulez vous recuperer ? :-----" << std::endl;
     ///Montrer la liste des fichiers
     std::cin >> nom;
     NomFichier=nom+".txt";
@@ -652,6 +650,18 @@ void Graph::ChargerGraphe()
     //ouverture du fichier en lecture
     if(fichier)
     {
+        int K = m_edges.size();
+
+        for (int i=0; i<m_vertices.size(); i++){
+           test_remove_vertex(i);
+        }
+        for (int i=0; i<K; i++){
+           test_remove_edge(i);
+        }
+
+        m_edges.clear();
+        m_vertices.clear();
+
         int nbSommet, nbArrete;
         int indice1,coord1,coord2;
         double Poids1;
@@ -665,14 +675,14 @@ void Graph::ChargerGraphe()
         for (int i=0;i<nbSommet;i++)
         {
             fichier >>indice1>>Poids1>>coord1>>coord2>>nomfich;
-            std::cout << "ok"<<std::endl;
+            //std::cout << "ok"<<std::endl;
             add_interfaced_vertex(indice1,Poids1,coord1,coord2,nomfich);
 
         }
         ///Charge Arc
         int indice2,Sommet1,Sommet2;
         double Poids2;
-        std::cout << "ko" << std::endl;
+        //std::cout << "ko" << std::endl;
         for (int i=0;i<nbArrete;i++)
         {
             fichier >>indice2>>Sommet1>>Sommet2>>Poids2;
@@ -684,5 +694,71 @@ void Graph::ChargerGraphe()
     else
     {
         std::cout<< "Impossible d'ouvrir le fichier"<<std::endl;
+    }
+}
+
+void Graph::ChargerGrapheBase(std::string name)
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+
+    std::ifstream fichier (name,ios::in);
+
+    ///ouverture du fichier en lecture
+    if(fichier){
+        int nbSommet, nbArrete;
+        int indice1,coord1,coord2;
+        double Poids1;
+        std::string nomfich;
+
+        ///Nombre de Sommet/Arrete
+        fichier >>nbSommet>>nbArrete;
+
+        ///Charge Sommet
+        for (int i=0;i<nbSommet;i++){
+            fichier >>indice1>>Poids1>>coord1>>coord2>>nomfich;
+            add_interfaced_vertex(indice1,Poids1,coord1,coord2,nomfich);
+
+        }
+
+        ///Charge Arc
+        int indice2,Sommet1,Sommet2;
+        double Poids2;
+
+        for (int i=0;i<nbArrete;i++){
+            fichier >>indice2>>Sommet1>>Sommet2>>Poids2;
+            add_interfaced_edge(indice2,Sommet1,Sommet2, Poids2);
+        }
+
+        fichier.close();
+    }
+    else{
+        std::cout<< "Impossible d'ouvrir le fichier"<<std::endl;
+    }
+}
+void Graph::Interaction()
+{
+
+    for(int i=0;i<m_vertices.size();i++)
+    {
+        /// Reproduction
+        m_vertices[i].m_value = 1.0002*m_vertices[i].m_value;
+        /// Deces
+       // m_vertices[i].m
+        for(int j=0; j< m_edges.size();j++)
+        {
+            /// Influence des autres especes sur la premiere
+            if(m_edges[j].m_to == i)
+            {
+
+                //m_vertices[i].m_value = m_vertices[i].m_value + 1,00002*m_vertices[i].m_value*(1-m_vertices[i].m_value/(m_edges[j].m_weight*m_vertices[m_edges[j].m_from].m_value));
+
+
+                m_vertices[i].m_value = m_vertices[i].m_value + m_vertices[m_edges[j].m_from].m_value*0.0001*m_edges[j].m_weight;
+                m_vertices[m_edges[j].m_from].m_value = m_vertices[m_edges[j].m_from].m_value -m_vertices[m_edges[j].m_from].m_value*0.0001*m_edges[j].m_weight;
+            }
+
+
+        }
+
     }
 }

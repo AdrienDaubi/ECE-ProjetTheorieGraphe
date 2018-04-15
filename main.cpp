@@ -83,10 +83,10 @@ int instructions ()
 
         //textprintf_ex(Buffer,font,mouse_x,mouse_y,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
 
-        //masked_blit(Souris, Buffer, 0, 0, mouse_x, mouse_y, Souris->w, Souris->h);
+        masked_blit(Souris, Buffer, 0, 0, mouse_x, mouse_y, Souris->w, Souris->h);
         blit(Buffer, screen, 0,0,0,0,SCREEN_W,SCREEN_H);
         clear(Buffer);
-        show_mouse(screen);
+        //show_mouse(screen);
     }
 
 return instructions;
@@ -102,8 +102,6 @@ int main()
     /// Le nom du répertoire où se trouvent les images à charger
     grman::set_pictures_path("pics");
 
-
-
     while (value != 5){     /// menu == 5 --> QUITTER
 
         if (value == 0){   /// MENU
@@ -113,10 +111,12 @@ int main()
         if (value == 1){    /// GRAPHE 1
 
             Graph g;
-            g.make_example1();
+
+            g.ChargerGrapheBase("Graphe1.txt");
 
             while ( !key[KEY_ESC] ){
                 /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
+                g.Interaction();
                 g.update();
 
                 /// Mise à jour générale (clavier/souris/buffer etc...)
@@ -128,10 +128,12 @@ int main()
         if (value == 2){   /// GRAPHE 2
 
             Graph g;
-            g.make_example2();
+
+            g.ChargerGrapheBase("Graphe2.txt");
 
             while ( !key[KEY_ESC] ){
                 /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
+                g.Interaction();
                 g.update();
 
                 /// Mise à jour générale (clavier/souris/buffer etc...)
@@ -143,10 +145,12 @@ int main()
         if (value == 3){   /// GRAPHE 3
 
             Graph g;
-            g.make_example3();
+
+            g.ChargerGrapheBase("Graphe3.txt");
 
             while ( !key[KEY_ESC] ){
                 /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
+                g.Interaction();
                 g.update();
 
                 /// Mise à jour générale (clavier/souris/buffer etc...)
