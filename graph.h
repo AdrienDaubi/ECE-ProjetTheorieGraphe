@@ -150,6 +150,7 @@ class Vertex
         // La ligne précédente est en gros équivalent à la ligne suivante :
         // VertexInterface * m_interface = nullptr;
 
+
     public:
 
         /// Les constructeurs sont à compléter selon vos besoin...
@@ -280,7 +281,7 @@ class GraphInterface
         grman::WidgetText m_sauvgarder; //le texte sauvgarder
 
         grman::WidgetButton m_Button2; // sera le bouton pour Effacer
-        grman::WidgetText m_effacer; //le texte effacer
+        grman::WidgetText m_effacer_arc; //le texte effacer
 
         grman::WidgetButton m_Button3; // sera le bouton pour Récupérer
         grman::WidgetText m_recuperer; //le texte sauvgarder
@@ -290,6 +291,9 @@ class GraphInterface
 
         grman::WidgetButton m_Button5; // sera le bouton pour Ajouter un arc
         grman::WidgetText m_AddEdge; //le texte Ajouter un arc
+
+        grman::WidgetButton m_Button6; // sera le bouton pour Ajouter un arc
+        grman::WidgetText m_effacer_sommet; //le texte Ajouter un arc
 
 
     public :
@@ -312,10 +316,12 @@ class Graph
         int posx;
         int posy;
         std::string PicName;
+        //
         int indiceEdge;
         int indicesommet1;
         int indicesommet2;
         double poids;
+        //
         int num;
 
          std::string m_pic_name;
@@ -350,19 +356,23 @@ class Graph
         void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
 
 
+
         /// Méthode spéciale qui construit un graphe arbitraire (démo)
         /// Voir implémentation dans le .cpp
         /// Cette méthode est à enlever et remplacer par un système
         /// de chargement de fichiers par exemple.
         void make_example1();
         void make_example2();
+        void make_example3();
 
 
 
         /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
         void update();
+
+        void test_remove_vertex(int eadx);
         void test_remove_edge(int eidx);
-        void Sauvegarde();
+        void Sauvegrade();
         void ChargerGraphe();
 };
 

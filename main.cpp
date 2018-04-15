@@ -36,11 +36,10 @@ int menu ()
         if (mouse_b & 1 && mouse_x>402 && mouse_x<602 && mouse_y<566 && mouse_y>475){       /// GRAPHE 2
         menu=2;
         }
-        /*
+
         if (mouse_b & 1 && mouse_x>403 && mouse_x<602 && mouse_y<690 && mouse_y>603){  /// GRAPHE 3
         menu=3;
         }
-        */
 
         if (mouse_b & 1 && mouse_x>46 && mouse_x<245 && mouse_y<128 && mouse_y>42){   /// INSTRUCTIONS
         menu=4;
@@ -52,7 +51,7 @@ int menu ()
 
         //textprintf_ex(Buffer,font,mouse_x,mouse_y,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
 
-        //masked_blit(Souris, Buffer, 0, 0, mouse_x, mouse_y, Souris->w, Souris->h);
+        masked_blit(Souris, Buffer, 0, 0, mouse_x, mouse_y, Souris->w, Souris->h);
         blit(Buffer, screen, 0,0,0,0,SCREEN_W,SCREEN_H);
         clear(Buffer);
         //show_mouse(screen);
@@ -87,7 +86,7 @@ int instructions ()
         //masked_blit(Souris, Buffer, 0, 0, mouse_x, mouse_y, Souris->w, Souris->h);
         blit(Buffer, screen, 0,0,0,0,SCREEN_W,SCREEN_H);
         clear(Buffer);
-        //show_mouse(screen);
+        show_mouse(screen);
     }
 
 return instructions;
@@ -140,9 +139,10 @@ int main()
             }
             value = menu();
         }
-        /*
+
         if (value == 3){   /// GRAPHE 3
 
+            Graph g;
             g.make_example3();
 
             while ( !key[KEY_ESC] ){
@@ -153,70 +153,16 @@ int main()
                 grman::mettre_a_jour();
             }
             value = menu();
-        }*/
+        }
 
         if (value == 4){   /// INSTRUCTIONS
             instructions();
             value = instructions();
             value = menu();
         }
-
-        /*while ( !key[KEY_ESC] ){
-                /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
-                g.update();
-
-                /// Mise à jour générale (clavier/souris/buffer etc...)
-                grman::mettre_a_jour();
-            }*/
     }
-
-    /*
-    /// A appeler en 1er avant d'instancier des objets graphiques etc...
-    grman::init();
-
-    /// Le nom du répertoire où se trouvent les images à charger
-    grman::set_pictures_path("pics");
-
-    /// Un exemple de graphe
-
-    Graph g;
-    int choix;
-    std::cout << "Quels graphe voulez vous ouvrir ? : " << std::endl;
-    std::cin >> choix;
-
-    while(choix<1 || choix>4)
-        {
-            std::cout<<"vous avez saisi une action non valide, veuillez recommencer SVP :";
-            std::cin>>choix;
-        }
-    switch(choix)
-        {
-            case 1 :g.make_example1();
-                    break;
-
-            case 2 :g.make_example2();
-                    //break;
-
-           // case 3 :j.achat_carte(toutes_cartes_dispo);
-                   // break;
-        }
-    //g.make_example();
-
-    /// Vous gardez la main sur la "boucle de jeu"
-    /// ( contrairement à des frameworks plus avancés )
-    while ( !key[KEY_ESC] )
-    {
-        /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
-        g.update();
-
-        /// Mise à jour générale (clavier/souris/buffer etc...)
-        grman::mettre_a_jour();
-    }
-
-    grman::fermer_allegro();
-    */
-
-    return 0;
+return 0;
 }
 END_OF_MAIN();
+
 
